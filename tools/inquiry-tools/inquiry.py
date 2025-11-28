@@ -399,17 +399,29 @@ def cmd_create_prompt(feature_id: str):
         sys.exit(1)
     
     feature = features[feature_id]
+    _create_prompt_file(feature_id, feature)
+
+
+def _create_prompt_file(feature_id: str, feature: dict, overwrite: bool = False):
+    """Internal function to create a prompt file"""
     prompt_file = PROMPTS_DIR / f"{feature_id}.md"
     
-    if prompt_file.exists():
+    if prompt_file.exists() and not overwrite:
         print(f"⚠️  Prompt already exists: {prompt_file}")
-        return
+        return False
     
     # Create prompts directory if needed
     PROMPTS_DIR.mkdir(exist_ok=True)
     
     # Build template
     content = f"""# PROMPT {feature_id}: {feature['title']}
+
+## Instructions
+- Create all files directly without asking for confirmation
+- Do not ask "Would you like me to create this file?" — just create it
+- Do not ask "Should I save this?" — just save it
+- Output complete, working code for all files
+- Save files to the specified paths
 
 ## Context
 {feature.get('description', 'TODO: Add context').strip()}
@@ -447,7 +459,34 @@ def cmd_create_prompt(feature_id: str):
     
     prompt_file.write_text(content)
     print(f"✅ Created: {prompt_file}")
-    print(f"   Edit the file to add implementation details")
+    return True
+
+
+def cmd_create_all_prompts(overwrite: bool = False):
+    """Create prompt files for all features"""
+    config = load_features()
+    features = config["features"]
+    
+    PROMPTS_DIR.mkdir(exist_ok=True)
+    
+    created = 0
+    skipped = 0
+    
+    print(f"\n📝 Creating prompts for {len(features)} features...\n")
+    
+    for feature_id, feature in features.items():
+        prompt_file = PROMPTS_DIR / f"{feature_id}.md"
+        
+        if prompt_file.exists() and not overwrite:
+            print(f"   Skipped: {feature_id} (exists)")
+            skipped += 1
+        else:
+            _create_prompt_file(feature_id, feature, overwrite)
+            created += 1
+    
+    print(f"\n✅ Done: {created} created, {skipped} skipped")
+    if skipped > 0 and not overwrite:
+        print(f"   Run with --overwrite to replace existing prompts")
 
 
 # ============================================
@@ -499,9 +538,13 @@ def main():
             sys.exit(1)
         cmd_create_prompt(sys.argv[2])
     
+    elif command == "create-all-prompts":
+        overwrite = "--overwrite" in sys.argv
+        cmd_create_all_prompts(overwrite)
+    
     else:
         print(f"Unknown command: {command}")
-        print("Commands: list, show, start, done, abort, status, setup-labels, create-prompt")
+        print("Commands: list, show, start, done, abort, status, setup-labels, create-prompt, create-all-prompts")
         sys.exit(1)
 
 
