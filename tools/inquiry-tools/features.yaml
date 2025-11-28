@@ -3,7 +3,7 @@
 
 project:
   name: inquiry-framework
-  repo: # your-username/inquiry-framework (set after creating repo)
+  repo: parthupadhye/inquiry-2025
 
 labels:
   phases:
