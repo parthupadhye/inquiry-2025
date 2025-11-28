@@ -1,0 +1,484 @@
+# Inquiry Framework - Feature Definitions
+# Each feature becomes a GitHub issue with associated prompt
+
+project:
+  name: inquiry-framework
+  repo: # your-username/inquiry-framework (set after creating repo)
+
+labels:
+  phases:
+    - name: "phase:1-foundation"
+      color: "1d76db"
+      description: "CLI and workspace setup"
+    - name: "phase:2-contracts"
+      color: "0e8a16"
+      description: "Types and validation"
+    - name: "phase:3-agents"
+      color: "d93f0b"
+      description: "Agent system"
+    - name: "phase:4-data"
+      color: "5319e7"
+      description: "Neo4j and Firestore"
+    - name: "phase:5-workflow"
+      color: "fbca04"
+      description: "Workflow engine"
+  
+  components:
+    - name: "component:cli"
+      color: "c5def5"
+    - name: "component:contracts"
+      color: "bfdadc"
+    - name: "component:agents"
+      color: "d4c5f9"
+    - name: "component:neo4j"
+      color: "f9d0c4"
+    - name: "component:firebase"
+      color: "fef2c0"
+    - name: "component:workflow"
+      color: "e99695"
+  
+  sizes:
+    - name: "size:small"
+      color: "c2e0c6"
+      description: "< 2 hours"
+    - name: "size:medium"
+      color: "fef2c0"
+      description: "2-4 hours"
+    - name: "size:large"
+      color: "f9d0c4"
+      description: "4-8 hours"
+
+features:
+  # ============================================
+  # PHASE 1: FOUNDATION
+  # ============================================
+  
+  "1.1.1":
+    title: "CLI: Package and Commander.js setup"
+    phase: "phase:1-foundation"
+    component: "component:cli"
+    size: "size:medium"
+    description: |
+      Set up the @inquiry/cli package with Commander.js for command parsing.
+    acceptance_criteria:
+      - "Package created at packages/inquiry-cli/"
+      - "inquiry --help shows usage"
+      - "inquiry --version shows version"
+      - "inquiry init command exists (stub)"
+      - "inquiry g <schematic> command exists (stub)"
+      - "Can run locally via npm link"
+    files:
+      - "packages/inquiry-cli/package.json"
+      - "packages/inquiry-cli/tsconfig.json"
+      - "packages/inquiry-cli/bin/inquiry.js"
+      - "packages/inquiry-cli/src/index.ts"
+      - "packages/inquiry-cli/src/commands/init.ts"
+      - "packages/inquiry-cli/src/commands/generate.ts"
+      - "packages/inquiry-cli/README.md"
+
+  "1.1.2":
+    title: "CLI: Template engine with EJS"
+    phase: "phase:1-foundation"
+    component: "component:cli"
+    size: "size:small"
+    description: |
+      Add EJS template rendering to generate files from templates.
+    acceptance_criteria:
+      - "EJS installed and configured"
+      - "renderTemplate() utility function"
+      - "Template helpers: classify, dasherize, camelize"
+      - "Can render .ejs files with variables"
+    files:
+      - "packages/inquiry-cli/src/utils/templates.ts"
+      - "packages/inquiry-cli/src/utils/helpers.ts"
+
+  "1.1.3":
+    title: "CLI: Interactive prompts with Inquirer"
+    phase: "phase:1-foundation"
+    component: "component:cli"
+    size: "size:small"
+    description: |
+      Add interactive prompts for missing options using @inquirer/prompts.
+    acceptance_criteria:
+      - "@inquirer/prompts installed"
+      - "promptForMissing() utility"
+      - "Support for input, select, confirm prompts"
+      - "Commands prompt when required args missing"
+    files:
+      - "packages/inquiry-cli/src/utils/prompts.ts"
+
+  "1.1.4":
+    title: "CLI: Config file loader"
+    phase: "phase:1-foundation"
+    component: "component:cli"
+    size: "size:small"
+    description: |
+      Load project configuration from inquiry.config.ts file.
+    acceptance_criteria:
+      - "cosmiconfig installed"
+      - "Loads inquiry.config.ts or inquiry.config.js"
+      - "Merges with default config"
+      - "Config available to all commands"
+    files:
+      - "packages/inquiry-cli/src/config/loader.ts"
+      - "packages/inquiry-cli/src/config/defaults.ts"
+      - "packages/inquiry-cli/src/config/schema.ts"
+
+  "1.1.5":
+    title: "CLI: File operations utility"
+    phase: "phase:1-foundation"
+    component: "component:cli"
+    size: "size:small"
+    description: |
+      File system utilities for creating, modifying, and checking files.
+    acceptance_criteria:
+      - "fs-extra installed"
+      - "createFile() with directory creation"
+      - "updateFile() for modifying existing files"
+      - "fileExists() check"
+      - "Dry run support (no actual writes)"
+    files:
+      - "packages/inquiry-cli/src/utils/files.ts"
+
+  "1.1.6":
+    title: "CLI: Console output utilities"
+    phase: "phase:1-foundation"
+    component: "component:cli"
+    size: "size:small"
+    description: |
+      Pretty console output with colors, spinners, and formatting.
+    acceptance_criteria:
+      - "chalk and ora installed"
+      - "logger.info(), logger.success(), logger.error()"
+      - "spinner for async operations"
+      - "Respects --verbose flag"
+    files:
+      - "packages/inquiry-cli/src/utils/logger.ts"
+
+  # ============================================
+  # PHASE 1: WORKSPACE INIT
+  # ============================================
+
+  "1.2.1":
+    title: "CLI: init command implementation"
+    phase: "phase:1-foundation"
+    component: "component:cli"
+    size: "size:medium"
+    description: |
+      Implement the 'inquiry init' command to set up workspace.
+    acceptance_criteria:
+      - "Creates /inquiry folder structure"
+      - "Creates inquiry.config.ts"
+      - "Updates tsconfig.json with path aliases"
+      - "Adds @inquiry/* paths"
+      - "Works in existing Angular project"
+    files:
+      - "packages/inquiry-cli/src/commands/init.ts"
+      - "packages/inquiry-cli/templates/init/inquiry.config.ts.ejs"
+      - "packages/inquiry-cli/templates/init/tsconfig.paths.json.ejs"
+
+  "1.2.2":
+    title: "CLI: Inquiry folder structure"
+    phase: "phase:1-foundation"
+    component: "component:cli"
+    size: "size:small"
+    description: |
+      Define and create the standard Inquiry folder structure.
+    acceptance_criteria:
+      - "Creates inquiry/ folder"
+      - "Creates inquiry/agents/ subfolder"
+      - "Creates inquiry/contracts/ subfolder"
+      - "Creates inquiry/workflows/ subfolder"
+      - "Creates inquiry/graph/ subfolder"
+      - "Creates index.ts files for each"
+    files:
+      - "packages/inquiry-cli/src/structures/workspace.ts"
+
+  # ============================================
+  # PHASE 2: CONTRACTS
+  # ============================================
+
+  "2.1.1":
+    title: "Contracts: Base message types"
+    phase: "phase:2-contracts"
+    component: "component:contracts"
+    size: "size:medium"
+    description: |
+      Core message envelope and metadata types for all agent communication.
+    acceptance_criteria:
+      - "InquiryMessage<T> envelope type"
+      - "AgentIdentifier type"
+      - "MessageMetadata type"
+      - "Provenance type"
+      - "All properties readonly"
+      - "Firestore compatible (no undefined)"
+    files:
+      - "inquiry/contracts/base.ts"
+      - "inquiry/contracts/index.ts"
+
+  "2.1.2":
+    title: "Contracts: Agent types"
+    phase: "phase:2-contracts"
+    component: "component:contracts"
+    size: "size:small"
+    description: |
+      Types for agent definitions, results, and lifecycle.
+    acceptance_criteria:
+      - "AgentType union type"
+      - "AgentConfig interface"
+      - "AgentResult<T> type with success/failure"
+      - "AgentStatus type"
+    files:
+      - "inquiry/contracts/agent.ts"
+
+  "2.1.3":
+    title: "Contracts: Claim and Source types"
+    phase: "phase:2-contracts"
+    component: "component:contracts"
+    size: "size:medium"
+    description: |
+      Domain types for claims, sources, and evidence.
+    acceptance_criteria:
+      - "Claim interface with category, status, confidence"
+      - "ClaimCategory union type"
+      - "Source interface with credibility"
+      - "SourceType union type"
+      - "Evidence interface linking claims to sources"
+    files:
+      - "inquiry/contracts/claim.ts"
+      - "inquiry/contracts/source.ts"
+      - "inquiry/contracts/evidence.ts"
+
+  "2.1.4":
+    title: "Contracts: Verification types"
+    phase: "phase:2-contracts"
+    component: "component:contracts"
+    size: "size:medium"
+    description: |
+      Types for verification results and certification.
+    acceptance_criteria:
+      - "VerificationResult interface"
+      - "VerificationStatus union type"
+      - "ConfidenceScore type with bounds"
+      - "CertificationPackage interface"
+      - "AuditEntry interface"
+    files:
+      - "inquiry/contracts/verification.ts"
+      - "inquiry/contracts/certification.ts"
+
+  "2.2.1":
+    title: "Contracts: Zod validation schemas"
+    phase: "phase:2-contracts"
+    component: "component:contracts"
+    size: "size:medium"
+    description: |
+      Runtime validation schemas using Zod for all contract types.
+    acceptance_criteria:
+      - "Zod installed"
+      - "Schema for each contract type"
+      - "Type inference from schemas"
+      - "validate() helper function"
+      - "Helpful error messages"
+    files:
+      - "inquiry/contracts/validation/schemas.ts"
+      - "inquiry/contracts/validation/index.ts"
+
+  # ============================================
+  # PHASE 3: AGENT SYSTEM
+  # ============================================
+
+  "3.1.1":
+    title: "Agent: Base agent class"
+    phase: "phase:3-agents"
+    component: "component:agents"
+    size: "size:large"
+    description: |
+      Abstract base class that all agents extend.
+    acceptance_criteria:
+      - "BaseAgent<TInput, TOutput> abstract class"
+      - "execute() abstract method"
+      - "Lifecycle hooks: onInit, beforeExecute, afterExecute, onError"
+      - "Built-in logging"
+      - "Provenance tracking"
+      - "success() and failure() helper methods"
+    files:
+      - "inquiry/agents/base/base-agent.ts"
+      - "inquiry/agents/base/agent-context.ts"
+      - "inquiry/agents/base/index.ts"
+
+  "3.1.2":
+    title: "Agent: Agent registry"
+    phase: "phase:3-agents"
+    component: "component:agents"
+    size: "size:medium"
+    description: |
+      Runtime registry for agent discovery and instantiation.
+    acceptance_criteria:
+      - "AgentRegistry singleton"
+      - "register() method"
+      - "get() method by type"
+      - "list() all registered agents"
+      - "Auto-registration via decorator or manifest"
+    files:
+      - "inquiry/agents/registry/agent-registry.ts"
+      - "inquiry/agents/registry/index.ts"
+
+  "3.2.1":
+    title: "CLI: Agent generator schematic"
+    phase: "phase:3-agents"
+    component: "component:cli"
+    size: "size:large"
+    description: |
+      Generate new agents from templates via 'inquiry g agent'.
+    acceptance_criteria:
+      - "'inquiry g agent <name>' works"
+      - "Prompts for agent type if not provided"
+      - "Creates agent file, schema, prompt, test"
+      - "Updates agent registry"
+      - "Updates index exports"
+      - "--dry-run shows files without creating"
+    files:
+      - "packages/inquiry-cli/src/generators/agent/index.ts"
+      - "packages/inquiry-cli/src/generators/agent/schema.ts"
+      - "packages/inquiry-cli/templates/agent/agent.ts.ejs"
+      - "packages/inquiry-cli/templates/agent/schema.ts.ejs"
+      - "packages/inquiry-cli/templates/agent/prompt.ts.ejs"
+      - "packages/inquiry-cli/templates/agent/test.ts.ejs"
+      - "packages/inquiry-cli/templates/agent/index.ts.ejs"
+
+  # ============================================
+  # PHASE 4: DATA LAYER
+  # ============================================
+
+  "4.1.1":
+    title: "Neo4j: Connection client"
+    phase: "phase:4-data"
+    component: "component:neo4j"
+    size: "size:medium"
+    description: |
+      Neo4j driver wrapper with connection pooling and helpers.
+    acceptance_criteria:
+      - "neo4j-driver installed"
+      - "Neo4jClient class with singleton"
+      - "query() method with parameters"
+      - "transaction support"
+      - "Connection pooling"
+      - "Environment-based config"
+    files:
+      - "inquiry/graph/client.ts"
+      - "inquiry/graph/index.ts"
+
+  "4.1.2":
+    title: "Neo4j: Docker setup"
+    phase: "phase:4-data"
+    component: "component:neo4j"
+    size: "size:small"
+    description: |
+      Docker Compose for local Neo4j development.
+    acceptance_criteria:
+      - "docker-compose.yml for Neo4j"
+      - "APOC plugin enabled"
+      - "Volume for data persistence"
+      - "README with startup instructions"
+    files:
+      - "infrastructure/neo4j/docker-compose.yml"
+      - "infrastructure/neo4j/README.md"
+
+  "4.2.1":
+    title: "CLI: Node generator schematic"
+    phase: "phase:4-data"
+    component: "component:cli"
+    size: "size:medium"
+    description: |
+      Generate Neo4j node types via 'inquiry g node'.
+    acceptance_criteria:
+      - "'inquiry g node <name>' works"
+      - "Creates TypeScript interface"
+      - "Creates Cypher constraints"
+      - "Creates CRUD query templates"
+      - "Updates graph schema index"
+    files:
+      - "packages/inquiry-cli/src/generators/node/index.ts"
+      - "packages/inquiry-cli/templates/node/interface.ts.ejs"
+      - "packages/inquiry-cli/templates/node/queries.cypher.ejs"
+      - "packages/inquiry-cli/templates/node/constraints.cypher.ejs"
+
+  "4.3.1":
+    title: "Neo4j: Inquiry graph schema"
+    phase: "phase:4-data"
+    component: "component:neo4j"
+    size: "size:large"
+    description: |
+      Core graph schema for claims, sources, and evidence.
+    acceptance_criteria:
+      - "(:Claim) node with properties"
+      - "(:Source) node with credibility"
+      - "(:Evidence) node"
+      - "(:Content) node for briefs/deliverables"
+      - "Relationships: CONTAINS_CLAIM, SUPPORTED_BY, DERIVED_FROM"
+      - "Constraints and indexes"
+      - "Seed data for testing"
+    files:
+      - "inquiry/graph/schema/nodes.ts"
+      - "inquiry/graph/schema/relationships.ts"
+      - "infrastructure/neo4j/migrations/001-initial-schema.cypher"
+      - "infrastructure/neo4j/seed/test-data.cypher"
+
+  # ============================================
+  # PHASE 5: WORKFLOW
+  # ============================================
+
+  "5.1.1":
+    title: "Workflow: Definition types"
+    phase: "phase:5-workflow"
+    component: "component:workflow"
+    size: "size:medium"
+    description: |
+      Types for defining workflows and steps.
+    acceptance_criteria:
+      - "WorkflowDefinition interface"
+      - "WorkflowStep interface"
+      - "StepType union (sequential, parallel, conditional)"
+      - "Transition interface"
+      - "WorkflowExecution interface"
+    files:
+      - "inquiry/workflows/types/definition.ts"
+      - "inquiry/workflows/types/execution.ts"
+      - "inquiry/workflows/types/index.ts"
+
+  "5.1.2":
+    title: "CLI: Workflow generator schematic"
+    phase: "phase:5-workflow"
+    component: "component:cli"
+    size: "size:medium"
+    description: |
+      Generate workflows via 'inquiry g workflow'.
+    acceptance_criteria:
+      - "'inquiry g workflow <name>' works"
+      - "Creates workflow definition file"
+      - "Creates workflow executor"
+      - "Prompts for steps to include"
+      - "Updates workflow registry"
+    files:
+      - "packages/inquiry-cli/src/generators/workflow/index.ts"
+      - "packages/inquiry-cli/templates/workflow/definition.ts.ejs"
+      - "packages/inquiry-cli/templates/workflow/executor.ts.ejs"
+
+  "5.2.1":
+    title: "Workflow: Execution engine"
+    phase: "phase:5-workflow"
+    component: "component:workflow"
+    size: "size:large"
+    description: |
+      Engine to execute workflows step by step.
+    acceptance_criteria:
+      - "WorkflowEngine class"
+      - "execute() method"
+      - "Step execution with agent lookup"
+      - "State management between steps"
+      - "Error handling and retry"
+      - "Execution logging"
+    files:
+      - "inquiry/workflows/engine/workflow-engine.ts"
+      - "inquiry/workflows/engine/step-executor.ts"
+      - "inquiry/workflows/engine/index.ts"
