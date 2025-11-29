@@ -1,0 +1,31 @@
+/**
+ * <%= classify(name) %> Agent Module
+ *
+ * <%= description %>
+ */
+
+// Main agent export
+export { <%= className %> } from './<%= name %>.agent.js';
+
+<% if (withSchema) { -%>
+// Schema exports
+export {
+  <%= classify(name) %>InputSchema,
+  <%= classify(name) %>OutputSchema,
+  validate<%= classify(name) %>Input,
+  validate<%= classify(name) %>Output,
+} from './<%= name %>.schema.js';
+export type {
+  <%= classify(name) %>Input,
+  <%= classify(name) %>Output,
+} from './<%= name %>.schema.js';
+
+<% } -%>
+<% if (withPrompt) { -%>
+// Prompt exports
+export {
+  <%= camelize(name) %>Prompt,
+  <%= camelize(name) %>SystemPrompt,
+  formatPrompt,
+} from './<%= name %>.prompt.js';
+<% } -%>

@@ -1,0 +1,207 @@
+/**
+ * <%= className %> - <%= description %>
+ */
+
+import { BaseAgent, type AgentContext } from '../base/index.js';
+<% if (withSchema) { -%>
+import type { <%= classify(name) %>Input, <%= classify(name) %>Output } from './<%= name %>.schema.js';
+<% } else { -%>
+
+/**
+ * Input type for <%= className %>.
+ */
+export interface <%= classify(name) %>Input {
+  // Define your input type here
+  data: unknown;
+}
+
+/**
+ * Output type for <%= className %>.
+ */
+export interface <%= classify(name) %>Output {
+  // Define your output type here
+  result: unknown;
+}
+<% } -%>
+<% if (withPrompt) { -%>
+import { <%= camelize(name) %>Prompt } from './<%= name %>.prompt.js';
+<% } -%>
+
+/**
+ * <%= description %>
+ *
+ * @example
+ * const agent = new <%= className %>('my-<%= name %>', '<%= classify(name) %>');
+ * await agent.initialize();
+ * const result = await agent.execute({ data: 'input' });
+ */
+export class <%= className %> extends BaseAgent<<%= classify(name) %>Input, <%= classify(name) %>Output> {
+  /**
+   * Creates a new <%= className %> instance.
+   */
+  constructor(id: string, name: string, options: Record<string, unknown> = {}) {
+    super(id, name, {
+      ...options,
+      config: {
+        type: '<%= type %>',
+        ...(options.config as Record<string, unknown> ?? {}),
+      },
+    });
+
+    // Register capabilities
+    this.addCapability({
+      name: '<%= camelize(name) %>',
+      description: '<%= description %>',
+      inputTypes: ['<%= classify(name) %>Input'],
+      outputTypes: ['<%= classify(name) %>Output'],
+    });
+  }
+
+  /**
+   * Initializes the agent.
+   * Override to perform custom initialization.
+   */
+  protected async onInit(): Promise<void> {
+    this.logger.info('Initializing <%= className %>');
+    // Add initialization logic here
+  }
+
+  /**
+   * Processes input and produces output.
+   *
+   * @param input - The input data to process
+   * @param context - Execution context
+   * @returns The processed output
+   */
+  protected async process(
+    input: <%= classify(name) %>Input,
+    context: AgentContext
+  ): Promise<<%= classify(name) %>Output> {
+    context.logger.info('Processing input', { executionId: context.executionId });
+
+<% if (type === 'extraction') { -%>
+    // TODO: Implement extraction logic
+    // Example: Extract structured data from unstructured input
+    const items = await this.extract(input, context);
+    return {
+      items,
+      metadata: {
+        totalExtracted: Array.isArray(items) ? items.length : 0,
+        processingTimeMs: Date.now() - Number(context.startedAt),
+      },
+    };
+<% } else if (type === 'validation') { -%>
+    // TODO: Implement validation logic
+    // Example: Validate input against rules or external sources
+    const isValid = await this.validate(input, context);
+    return { result: { valid: isValid } };
+<% } else if (type === 'transformation') { -%>
+    // TODO: Implement transformation logic
+    // Example: Transform input data to a different format
+    const transformed = await this.transform(input, context);
+    return { result: transformed };
+<% } else if (type === 'analysis') { -%>
+    // TODO: Implement analysis logic
+    // Example: Analyze input and produce insights
+    const analysis = await this.analyze(input, context);
+    return { result: analysis };
+<% } else { -%>
+    // TODO: Implement your agent logic here
+    return {
+      result: input.data,
+    };
+<% } -%>
+  }
+
+<% if (type === 'extraction') { -%>
+  /**
+   * Extracts structured data from input.
+   */
+  private async extract(
+    input: <%= classify(name) %>Input,
+    context: AgentContext
+  ): Promise<unknown[]> {
+    // Implement extraction logic
+    context.logger.debug('Extracting data');
+    return [input.content];
+  }
+<% } else if (type === 'validation') { -%>
+  /**
+   * Validates input data.
+   */
+  private async validate(
+    input: <%= classify(name) %>Input,
+    context: AgentContext
+  ): Promise<boolean> {
+    // Implement validation logic
+    context.logger.debug('Validating data');
+    return input.data !== null && input.data !== undefined;
+  }
+<% } else if (type === 'transformation') { -%>
+  /**
+   * Transforms input data.
+   */
+  private async transform(
+    input: <%= classify(name) %>Input,
+    context: AgentContext
+  ): Promise<unknown> {
+    // Implement transformation logic
+    context.logger.debug('Transforming data');
+    return input.data;
+  }
+<% } else if (type === 'analysis') { -%>
+  /**
+   * Analyzes input data.
+   */
+  private async analyze(
+    input: <%= classify(name) %>Input,
+    context: AgentContext
+  ): Promise<unknown> {
+    // Implement analysis logic
+    context.logger.debug('Analyzing data');
+    return { analyzed: input.data };
+  }
+<% } -%>
+
+  /**
+   * Called before each execution.
+   */
+  protected async beforeExecute(
+    input: <%= classify(name) %>Input,
+    context: AgentContext
+  ): Promise<void> {
+    context.logger.debug('Before execute hook');
+  }
+
+  /**
+   * Called after successful execution.
+   */
+  protected async afterExecute(
+    input: <%= classify(name) %>Input,
+    output: <%= classify(name) %>Output,
+    context: AgentContext
+  ): Promise<void> {
+    context.logger.debug('After execute hook', { output });
+  }
+
+  /**
+   * Called when an error occurs.
+   */
+  protected async onError(
+    error: unknown,
+    input: <%= classify(name) %>Input,
+    context: AgentContext
+  ): Promise<void> {
+    context.logger.error('Error in <%= className %>', {
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+
+  /**
+   * Called during shutdown.
+   */
+  protected async onShutdown(): Promise<void> {
+    this.logger.info('Shutting down <%= className %>');
+    // Add cleanup logic here
+  }
+}

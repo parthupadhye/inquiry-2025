@@ -1,0 +1,116 @@
+/**
+ * Schema definitions for <%= className %>.
+ * Defines input and output types with Zod validation.
+ */
+
+import { z } from 'zod';
+
+/**
+ * Input schema for <%= className %>.
+ */
+export const <%= classify(name) %>InputSchema = z.object({
+<% if (type === 'extraction') { -%>
+  /** Source content to extract from */
+  content: z.string().min(1, 'Content is required'),
+  /** Optional extraction options */
+  options: z.object({
+    /** Maximum items to extract */
+    maxItems: z.number().int().positive().optional(),
+    /** Extraction format */
+    format: z.enum(['json', 'text', 'structured']).default('json'),
+  }).optional(),
+<% } else if (type === 'validation') { -%>
+  /** Data to validate */
+  data: z.unknown(),
+  /** Validation rules */
+  rules: z.array(z.object({
+    field: z.string(),
+    rule: z.string(),
+    value: z.unknown().optional(),
+  })).optional(),
+<% } else if (type === 'transformation') { -%>
+  /** Source data to transform */
+  source: z.unknown(),
+  /** Target format */
+  targetFormat: z.string().default('json'),
+  /** Transformation options */
+  options: z.record(z.string(), z.unknown()).optional(),
+<% } else if (type === 'analysis') { -%>
+  /** Data to analyze */
+  data: z.unknown(),
+  /** Analysis type */
+  analysisType: z.enum(['summary', 'detailed', 'comparative']).default('summary'),
+  /** Additional parameters */
+  parameters: z.record(z.string(), z.unknown()).optional(),
+<% } else { -%>
+  /** Input data */
+  data: z.unknown(),
+<% } -%>
+});
+
+/**
+ * Input type for <%= className %>.
+ */
+export type <%= classify(name) %>Input = z.infer<typeof <%= classify(name) %>InputSchema>;
+
+/**
+ * Output schema for <%= className %>.
+ */
+export const <%= classify(name) %>OutputSchema = z.object({
+<% if (type === 'extraction') { -%>
+  /** Extracted items */
+  items: z.array(z.unknown()),
+  /** Extraction metadata */
+  metadata: z.object({
+    totalExtracted: z.number(),
+    processingTimeMs: z.number(),
+  }),
+<% } else if (type === 'validation') { -%>
+  /** Whether validation passed */
+  valid: z.boolean(),
+  /** Validation errors if any */
+  errors: z.array(z.object({
+    field: z.string(),
+    message: z.string(),
+    rule: z.string(),
+  })),
+<% } else if (type === 'transformation') { -%>
+  /** Transformed data */
+  transformed: z.unknown(),
+  /** Transformation metadata */
+  metadata: z.object({
+    sourceFormat: z.string(),
+    targetFormat: z.string(),
+    transformedAt: z.number(),
+  }),
+<% } else if (type === 'analysis') { -%>
+  /** Analysis results */
+  analysis: z.unknown(),
+  /** Analysis summary */
+  summary: z.string(),
+  /** Confidence score */
+  confidence: z.number().min(0).max(1),
+<% } else { -%>
+  /** Output result */
+  result: z.unknown(),
+<% } -%>
+});
+
+/**
+ * Output type for <%= className %>.
+ */
+export type <%= classify(name) %>Output = z.infer<typeof <%= classify(name) %>OutputSchema>;
+
+/**
+ * Validates input for <%= className %>.
+ */
+export function validate<%= classify(name) %>Input(data: unknown): <%= classify(name) %>Input {
+  return <%= classify(name) %>InputSchema.parse(data);
+}
+
+/**
+ * Validates output for <%= className %>.
+ */
+export function validate<%= classify(name) %>Output(data: unknown): <%= classify(name) %>Output {
+  return <%= classify(name) %>OutputSchema.parse(data);
+}

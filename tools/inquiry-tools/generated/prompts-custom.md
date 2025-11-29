@@ -1,5 +1,5 @@
 # Combined Prompts
-Generated: 2025-11-29 09:33
+Generated: 2025-11-29 10:03
 Total prompts: 5
 
 ## Prompts Included
@@ -16,10 +16,11 @@ Total prompts: 5
 # PROMPT R.1.1: FTC Claim Categories — Documentation Structure
 
 ## Target Repo
-`inquiry-research` (NOT the main project repo)
+`inquiry-research` at `C:\Users\parth\einquiry-research`
 
 ## Instructions
 - Create all files directly without asking for confirmation
+- Save files to: `C:\Users\parth\einquiry-research\`
 - Do not ask "Would you like me to create this file?" — just create it
 - Do not ask "Should I save this?" — just save it
 - Create documentation templates and structure only
@@ -536,10 +537,11 @@ domains/
 # PROMPT R.1.2: Industry-Specific Requirements — Documentation Structure
 
 ## Target Repo
-`inquiry-research` (NOT the main project repo)
+`inquiry-research` at `C:\Users\parth\einquiry-research`
 
 ## Instructions
 - Create all files directly without asking for confirmation
+- Save files to: `C:\Users\parth\einquiry-research\`
 - Do not ask "Would you like me to create this file?" — just create it
 - Do not ask "Should I save this?" — just save it
 - Create documentation templates and structure only
@@ -1022,10 +1024,11 @@ domains/
 # PROMPT R.1.3: Brief and Deliverable Types — Documentation Structure
 
 ## Target Repo
-`inquiry-research` (NOT the main project repo)
+`inquiry-research` at `C:\Users\parth\einquiry-research`
 
 ## Instructions
 - Create all files directly without asking for confirmation
+- Save files to: `C:\Users\parth\einquiry-research\`
 - Do not ask "Would you like me to create this file?" — just create it
 - Do not ask "Should I save this?" — just save it
 - Create documentation templates and structure only
@@ -1459,10 +1462,11 @@ domains/
 # PROMPT R.1.4: Agency Workflow Mapping — Documentation Structure
 
 ## Target Repo
-`inquiry-research` (NOT the main project repo)
+`inquiry-research` at `C:\Users\parth\einquiry-research`
 
 ## Instructions
 - Create all files directly without asking for confirmation
+- Save files to: `C:\Users\parth\einquiry-research\`
 - Do not ask "Would you like me to create this file?" — just create it
 - Do not ask "Should I save this?" — just save it
 - Create documentation templates and structure only
@@ -2082,10 +2086,11 @@ domains/
 # PROMPT R.1.5: Source Credibility Framework — Documentation Structure
 
 ## Target Repo
-`inquiry-research` (NOT the main project repo)
+`inquiry-research` at `C:\Users\parth\einquiry-research`
 
 ## Instructions
 - Create all files directly without asking for confirmation
+- Save files to: `C:\Users\parth\einquiry-research\`
 - Do not ask "Would you like me to create this file?" — just create it
 - Do not ask "Should I save this?" — just save it
 - Create documentation templates and structure only

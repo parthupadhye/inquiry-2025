@@ -1,0 +1,35 @@
+{
+  "name": "@inquiry/cli",
+  "version": "0.1.0",
+  "description": "CLI for Inquiry Framework schematics",
+  "type": "module",
+  "bin": {
+    "inquiry": "./bin/inquiry.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^8.0.1",
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "cosmiconfig": "^9.0.0",
+    "ejs": "^3.1.10",
+    "fs-extra": "^11.3.2",
+    "ora": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

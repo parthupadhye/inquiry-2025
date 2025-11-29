@@ -1,0 +1,125 @@
+/**
+ * Prompt templates for <%= className %>.
+ * Used for LLM-based processing within the agent.
+ */
+
+/**
+ * System prompt for <%= className %>.
+ */
+export const <%= camelize(name) %>SystemPrompt = `You are an AI assistant specialized in <%= type %> tasks.
+Your role is to <%= description.toLowerCase() %>.
+
+Follow these guidelines:
+1. Be precise and accurate in your responses
+2. Provide structured output when requested
+3. Explain your reasoning when appropriate
+4. Handle edge cases gracefully`;
+
+/**
+ * Prompt template for <%= type %> tasks.
+ */
+export const <%= camelize(name) %>Prompt = {
+  /**
+   * System prompt for the agent.
+   */
+  system: <%= camelize(name) %>SystemPrompt,
+
+<% if (type === 'extraction') { -%>
+  /**
+   * Prompt for extracting data from content.
+   */
+  extract: (content: string, format: string) => `
+Extract structured data from the following content.
+Output format: ${format}
+
+Content:
+${content}
+
+Instructions:
+- Identify all relevant entities and relationships
+- Structure the output according to the specified format
+- Include confidence scores where applicable
+- Note any ambiguities or uncertainties
+`,
+<% } else if (type === 'validation') { -%>
+  /**
+   * Prompt for validating data.
+   */
+  validate: (data: string, rules: string) => `
+Validate the following data against the specified rules.
+
+Data:
+${data}
+
+Rules:
+${rules}
+
+Instructions:
+- Check each rule against the data
+- Report any violations with specific details
+- Provide suggestions for fixing issues
+- Return a structured validation report
+`,
+<% } else if (type === 'transformation') { -%>
+  /**
+   * Prompt for transforming data.
+   */
+  transform: (source: string, targetFormat: string) => `
+Transform the following data to ${targetFormat} format.
+
+Source data:
+${source}
+
+Instructions:
+- Maintain data integrity during transformation
+- Handle any format-specific requirements
+- Preserve all meaningful information
+- Return the transformed data
+`,
+<% } else if (type === 'analysis') { -%>
+  /**
+   * Prompt for analyzing data.
+   */
+  analyze: (data: string, analysisType: string) => `
+Perform a ${analysisType} analysis of the following data.
+
+Data:
+${data}
+
+Instructions:
+- Identify key patterns and insights
+- Provide ${analysisType === 'summary' ? 'a concise summary' : analysisType === 'detailed' ? 'comprehensive details' : 'comparative analysis'}
+- Include relevant statistics where applicable
+- Structure your response clearly
+`,
+<% } else { -%>
+  /**
+   * Main prompt template.
+   */
+  process: (input: string) => `
+Process the following input according to the agent's purpose.
+
+Input:
+${input}
+
+Instructions:
+- Follow the system prompt guidelines
+- Provide clear and structured output
+- Handle any errors gracefully
+`,
+<% } -%>
+};
+
+/**
+ * Helper function to format prompt with variables.
+ */
+export function formatPrompt(
+  template: string,
+  variables: Record<string, string>
+): string {
+  let result = template;
+  for (const [key, value] of Object.entries(variables)) {
+    result = result.replace(new RegExp(`\\$\\{${key}\\}`, 'g'), value);
+  }
+  return result;
+}

@@ -1,2 +1,45 @@
+# Python
 .venv/
 tools/*/.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Node
+node_modules/
+inquiry/node_modules/
+inquiry/dist/
+
+# Build outputs
+dist/
+out-tsc/
+.angular/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+
+# Vercel
+.vercel/
+
+# Tool-specific
+tools/inquiry-tools/.current   

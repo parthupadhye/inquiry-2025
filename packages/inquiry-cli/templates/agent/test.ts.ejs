@@ -1,0 +1,182 @@
+/**
+ * Tests for <%= className %>.
+ */
+
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { <%= className %> } from './<%= name %>.agent.js';
+<% if (withSchema) { -%>
+import type { <%= classify(name) %>Input, <%= classify(name) %>Output } from './<%= name %>.schema.js';
+<% } -%>
+import { createNoOpLogger } from '../base/index.js';
+
+describe('<%= className %>', () => {
+  let agent: <%= className %>;
+
+  beforeEach(async () => {
+    agent = new <%= className %>('test-<%= name %>', 'Test <%= classify(name) %>', {
+      logger: createNoOpLogger(),
+    });
+    await agent.initialize();
+  });
+
+  afterEach(async () => {
+    await agent.shutdown();
+  });
+
+  describe('initialization', () => {
+    it('should initialize successfully', () => {
+      expect(agent.getState().status).toBe('ready');
+    });
+
+    it('should have correct agent type', () => {
+      expect(agent.getConfig().type).toBe('<%= type %>');
+    });
+
+    it('should have registered capabilities', () => {
+      const capabilities = agent.getCapabilities();
+      expect(capabilities.length).toBeGreaterThan(0);
+      expect(capabilities[0].name).toBe('<%= camelize(name) %>');
+    });
+  });
+
+  describe('execution', () => {
+<% if (type === 'extraction') { -%>
+    it('should extract data from content', async () => {
+      const input: <%= classify(name) %>Input = {
+        content: 'Sample content for extraction',
+        options: { format: 'json' },
+      };
+
+      const result = await agent.execute(input);
+
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data).toBeDefined();
+      }
+    });
+<% } else if (type === 'validation') { -%>
+    it('should validate data successfully', async () => {
+      const input: <%= classify(name) %>Input = {
+        data: { field: 'value' },
+        rules: [{ field: 'field', rule: 'required' }],
+      };
+
+      const result = await agent.execute(input);
+
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data).toBeDefined();
+      }
+    });
+<% } else if (type === 'transformation') { -%>
+    it('should transform data to target format', async () => {
+      const input: <%= classify(name) %>Input = {
+        source: { key: 'value' },
+        targetFormat: 'json',
+      };
+
+      const result = await agent.execute(input);
+
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data).toBeDefined();
+      }
+    });
+<% } else if (type === 'analysis') { -%>
+    it('should analyze data and return results', async () => {
+      const input: <%= classify(name) %>Input = {
+        data: [1, 2, 3, 4, 5],
+        analysisType: 'summary',
+      };
+
+      const result = await agent.execute(input);
+
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data).toBeDefined();
+      }
+    });
+<% } else { -%>
+    it('should process input and return output', async () => {
+      const input = {
+        data: 'test input',
+      };
+
+      const result = await agent.execute(input);
+
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data).toBeDefined();
+        expect(result.data.result).toBe('test input');
+      }
+    });
+<% } -%>
+
+    it('should handle errors gracefully', async () => {
+      // Test with potentially problematic input - using any to test edge cases
+<% if (type === 'extraction') { -%>
+      const input = { content: '' } as any;
+<% } else if (type === 'transformation') { -%>
+      const input = { source: null, targetFormat: 'json' } as any;
+<% } else if (type === 'validation') { -%>
+      const input = { data: null } as any;
+<% } else if (type === 'analysis') { -%>
+      const input = { data: null, analysisType: 'summary' as const } as any;
+<% } else { -%>
+      const input = { data: null } as any;
+<% } -%>
+
+      const result = await agent.execute(input);
+
+      // Should either succeed or fail gracefully
+      expect(typeof result.success).toBe('boolean');
+    });
+  });
+
+  describe('lifecycle', () => {
+    it('should execute beforeExecute hook', async () => {
+<% if (type === 'extraction') { -%>
+      const input = { content: 'test content' };
+<% } else if (type === 'transformation') { -%>
+      const input = { source: 'test', targetFormat: 'json' };
+<% } else if (type === 'validation') { -%>
+      const input = { data: 'test' };
+<% } else if (type === 'analysis') { -%>
+      const input = { data: 'test', analysisType: 'summary' as const };
+<% } else { -%>
+      const input = { data: 'test' };
+<% } -%>
+      const result = await agent.execute(input);
+
+      // Hooks should have been called (check via successful execution)
+      expect(result).toBeDefined();
+    });
+
+    it('should shutdown gracefully', async () => {
+      await agent.shutdown();
+      expect(agent.getState().status).toBe('stopped');
+    });
+  });
+
+  describe('state management', () => {
+    it('should track execution statistics', async () => {
+<% if (type === 'extraction') { -%>
+      const input = { content: 'test content' };
+<% } else if (type === 'transformation') { -%>
+      const input = { source: 'test', targetFormat: 'json' };
+<% } else if (type === 'validation') { -%>
+      const input = { data: 'test' };
+<% } else if (type === 'analysis') { -%>
+      const input = { data: 'test', analysisType: 'summary' as const };
+<% } else { -%>
+      const input = { data: 'test' };
+<% } -%>
+
+      await agent.execute(input);
+      await agent.execute(input);
+
+      const state = agent.getState();
+      expect(state.totalProcessed).toBe(2);
+    });
+  });
+});

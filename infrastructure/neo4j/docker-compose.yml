@@ -1,0 +1,75 @@
+# Neo4j Docker Compose for Inquiry Framework
+# Local development environment with APOC plugin
+
+services:
+  neo4j:
+    image: neo4j:5.15.0-community
+    container_name: inquiry-neo4j
+    ports:
+      # HTTP port for Neo4j Browser
+      - "${NEO4J_HTTP_PORT:-7474}:7474"
+      # Bolt port for driver connections
+      - "${NEO4J_BOLT_PORT:-7687}:7687"
+    environment:
+      # Authentication
+      NEO4J_AUTH: ${NEO4J_USERNAME:-neo4j}/${NEO4J_PASSWORD:-inquiry_dev_2024}
+
+      # Memory configuration
+      NEO4J_server_memory_heap_initial__size: ${NEO4J_HEAP_INITIAL:-512m}
+      NEO4J_server_memory_heap_max__size: ${NEO4J_HEAP_MAX:-1G}
+      NEO4J_server_memory_pagecache_size: ${NEO4J_PAGECACHE:-512m}
+
+      # Enable APOC plugin
+      NEO4J_PLUGINS: '["apoc"]'
+
+      # APOC configuration
+      NEO4J_dbms_security_procedures_unrestricted: apoc.*
+      NEO4J_dbms_security_procedures_allowlist: apoc.*
+
+      # Allow file imports for data loading
+      NEO4J_apoc_import_file_enabled: "true"
+      NEO4J_apoc_export_file_enabled: "true"
+
+      # Enable query logging for development
+      NEO4J_dbms_logs_query_enabled: "INFO"
+      NEO4J_dbms_logs_query_threshold: "0s"
+
+      # Transaction settings
+      NEO4J_dbms_transaction_timeout: "60s"
+
+      # Allow remote connections
+      NEO4J_dbms_connector_bolt_listen__address: 0.0.0.0:7687
+      NEO4J_dbms_connector_http_listen__address: 0.0.0.0:7474
+    volumes:
+      # Persistent data storage
+      - neo4j-data:/data
+      # Logs for debugging
+      - neo4j-logs:/logs
+      # Import directory for data files
+      - neo4j-import:/var/lib/neo4j/import
+      # Plugins directory
+      - neo4j-plugins:/plugins
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - inquiry-network
+
+volumes:
+  neo4j-data:
+    name: inquiry-neo4j-data
+  neo4j-logs:
+    name: inquiry-neo4j-logs
+  neo4j-import:
+    name: inquiry-neo4j-import
+  neo4j-plugins:
+    name: inquiry-neo4j-plugins
+
+networks:
+  inquiry-network:
+    name: inquiry-network
+    driver: bridge

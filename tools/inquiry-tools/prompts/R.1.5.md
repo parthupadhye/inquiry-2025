@@ -1,10 +1,11 @@
 # PROMPT R.1.5: Source Credibility Framework — Documentation Structure
 
 ## Target Repo
-`inquiry-research` (NOT the main project repo)
+`inquiry-research` at `C:\Users\parth\einquiry-research`
 
 ## Instructions
 - Create all files directly without asking for confirmation
+- Save files to: `C:\Users\parth\einquiry-research\`
 - Do not ask "Would you like me to create this file?" — just create it
 - Do not ask "Should I save this?" — just save it
 - Create documentation templates and structure only

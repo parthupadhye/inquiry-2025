@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(node bin/inquiry.js:*)",
+      "Bash(python inquiry.py:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm build:*)",
+      "Bash(node -e:*)",
+      "Bash(cat:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm install:*)",
+      "Bash(echo:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
