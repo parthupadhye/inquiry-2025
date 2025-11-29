@@ -1,5 +1,8 @@
 # PROMPT R.1.5: Source Credibility Framework — Documentation Structure
 
+## Target Repo
+`inquiry-research` (NOT the main project repo)
+
 ## Instructions
 - Create all files directly without asking for confirmation
 - Do not ask "Would you like me to create this file?" — just create it
@@ -12,7 +15,7 @@ Create documentation templates for source credibility framework. Scaffolding onl
 
 ## Files to Create
 
-### 1. research/domains/sources/README.md
+### 1. domains/sources/README.md
 
 ```markdown
 # Source Credibility Research
@@ -35,7 +38,7 @@ Define framework for evaluating and scoring source credibility for claim substan
 This framework informs the SourceVerification and CredibilityScoring agents.
 ```
 
-### 2. research/domains/sources/source-types.md
+### 2. domains/sources/source-types.md
 
 ```markdown
 # Source Types Catalog
@@ -269,7 +272,7 @@ This framework informs the SourceVerification and CredibilityScoring agents.
 - [ ] Define metadata requirements
 ```
 
-### 3. research/domains/sources/credibility-framework.md
+### 3. domains/sources/credibility-framework.md
 
 ```markdown
 # Source Credibility Framework
@@ -402,7 +405,7 @@ Credibility Score =
 - [ ] Calibrate thresholds
 ```
 
-### 4. research/domains/sources/expiration-rules.md
+### 4. domains/sources/expiration-rules.md
 
 ```markdown
 # Source Expiration Rules
@@ -479,13 +482,12 @@ Rules for when sources expire and claims need re-verification.
 ## Folder Structure to Create
 
 ```
-research/
-└── domains/
-    └── sources/
-        ├── README.md
-        ├── source-types.md
-        ├── credibility-framework.md
-        └── expiration-rules.md
+domains/
+└── sources/
+    ├── README.md
+    ├── source-types.md
+    ├── credibility-framework.md
+    └── expiration-rules.md
 ```
 
 ## Success Criteria

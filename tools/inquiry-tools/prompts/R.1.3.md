@@ -1,5 +1,8 @@
 # PROMPT R.1.3: Brief and Deliverable Types — Documentation Structure
 
+## Target Repo
+`inquiry-research` (NOT the main project repo)
+
 ## Instructions
 - Create all files directly without asking for confirmation
 - Do not ask "Would you like me to create this file?" — just create it
@@ -12,7 +15,7 @@ Create documentation templates for brief and deliverable type analysis. Scaffold
 
 ## Files to Create
 
-### 1. research/domains/brief-types/README.md
+### 1. domains/brief-types/README.md
 
 ```markdown
 # Brief & Deliverable Types Research
@@ -33,7 +36,7 @@ Catalog and analyze types of briefs and deliverables to inform claim extraction 
 - [ ] Sample templates created
 ```
 
-### 2. research/domains/brief-types/catalog.md
+### 2. domains/brief-types/catalog.md
 
 ```markdown
 # Brief & Deliverable Type Catalog
@@ -217,7 +220,7 @@ Catalog and analyze types of briefs and deliverables to inform claim extraction 
 - [ ] Prioritize types for MVP
 ```
 
-### 3. research/domains/brief-types/extraction-patterns.md
+### 3. domains/brief-types/extraction-patterns.md
 
 ```markdown
 # Claim Extraction Patterns by Content Type
@@ -337,7 +340,7 @@ Patterns for extracting claims from different content types.
 - [ ] Document extraction accuracy per type
 ```
 
-### 4. research/domains/brief-types/templates/creative-brief-template.md
+### 4. domains/brief-types/templates/creative-brief-template.md
 
 ```markdown
 # Creative Brief Template Analysis
@@ -409,16 +412,15 @@ Tone/Guidelines      ░░░░░░░░░░  (Low)
 ## Folder Structure to Create
 
 ```
-research/
-└── domains/
-    └── brief-types/
-        ├── README.md
-        ├── catalog.md
-        ├── extraction-patterns.md
-        ├── templates/
-        │   └── creative-brief-template.md
-        └── samples/
-            └── .gitkeep
+domains/
+└── brief-types/
+    ├── README.md
+    ├── catalog.md
+    ├── extraction-patterns.md
+    ├── templates/
+    │   └── creative-brief-template.md
+    └── samples/
+        └── .gitkeep
 ```
 
 ## Success Criteria

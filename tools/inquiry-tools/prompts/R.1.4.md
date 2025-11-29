@@ -1,5 +1,8 @@
 # PROMPT R.1.4: Agency Workflow Mapping — Documentation Structure
 
+## Target Repo
+`inquiry-research` (NOT the main project repo)
+
 ## Instructions
 - Create all files directly without asking for confirmation
 - Do not ask "Would you like me to create this file?" — just create it
@@ -12,7 +15,7 @@ Create documentation templates for agency workflow mapping. Scaffolding only.
 
 ## Files to Create
 
-### 1. research/domains/agency-workflow/README.md
+### 1. domains/agency-workflow/README.md
 
 ```markdown
 # Agency Workflow Research
@@ -40,7 +43,7 @@ Map agency workflows from brief to legal approval to identify integration points
 - Tool vendor documentation
 ```
 
-### 2. research/domains/agency-workflow/workflow-map.md
+### 2. domains/agency-workflow/workflow-map.md
 
 ```markdown
 # Agency Workflow Map
@@ -257,7 +260,7 @@ Client Brief
 - [ ] Map revision cycles
 ```
 
-### 3. research/domains/agency-workflow/stakeholders.md
+### 3. domains/agency-workflow/stakeholders.md
 
 ```markdown
 # Agency Stakeholders
@@ -394,7 +397,7 @@ R = Responsible, A = Accountable, C = Consulted, I = Informed
 - [ ] Identify champions vs. blockers
 ```
 
-### 4. research/domains/agency-workflow/tools-audit.md
+### 4. domains/agency-workflow/tools-audit.md
 
 ```markdown
 # Agency Tools Audit
@@ -505,7 +508,7 @@ Identify tools in agency workflow for integration opportunities.
 - [ ] Prioritize by usage frequency
 ```
 
-### 5. research/domains/agency-workflow/pain-points.md
+### 5. domains/agency-workflow/pain-points.md
 
 ```markdown
 # Agency Pain Points
@@ -597,14 +600,13 @@ Document pain points that Diligence addresses.
 ## Folder Structure to Create
 
 ```
-research/
-└── domains/
-    └── agency-workflow/
-        ├── README.md
-        ├── workflow-map.md
-        ├── stakeholders.md
-        ├── tools-audit.md
-        └── pain-points.md
+domains/
+└── agency-workflow/
+    ├── README.md
+    ├── workflow-map.md
+    ├── stakeholders.md
+    ├── tools-audit.md
+    └── pain-points.md
 ```
 
 ## Success Criteria

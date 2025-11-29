@@ -1,5 +1,8 @@
 # PROMPT R.1.1: FTC Claim Categories — Documentation Structure
 
+## Target Repo
+`inquiry-research` (NOT the main project repo)
+
 ## Instructions
 - Create all files directly without asking for confirmation
 - Do not ask "Would you like me to create this file?" — just create it
@@ -12,7 +15,7 @@ Create the folder structure and documentation templates for FTC claim categories
 
 ## Files to Create
 
-### 1. research/domains/claim-categories/README.md
+### 1. domains/claim-categories/README.md
 Overview of the claim categories research area.
 
 ```markdown
@@ -40,7 +43,7 @@ Document FTC claim categories, substantiation requirements, and risk patterns to
 - Recent FTC enforcement actions (2023-2025)
 ```
 
-### 2. research/domains/claim-categories/taxonomy.md
+### 2. domains/claim-categories/taxonomy.md
 Template for claim category taxonomy.
 
 ```markdown
@@ -244,7 +247,7 @@ Template for claim category taxonomy.
 - [ ] Identify keyword patterns for extraction
 ```
 
-### 3. research/domains/claim-categories/ftc-guidelines.md
+### 3. domains/claim-categories/ftc-guidelines.md
 Template for FTC guidelines summary.
 
 ```markdown
@@ -310,7 +313,7 @@ Template for FTC guidelines summary.
 - [ ] Document disclosure requirements
 ```
 
-### 4. research/domains/claim-categories/enforcement-actions.md
+### 4. domains/claim-categories/enforcement-actions.md
 Template for enforcement actions research.
 
 ```markdown
@@ -380,7 +383,7 @@ Analysis of recent FTC enforcement actions to identify patterns and priorities.
 - [ ] Identify enforcement patterns
 ```
 
-### 5. research/domains/claim-categories/risk-patterns.md
+### 5. domains/claim-categories/risk-patterns.md
 Template for risk patterns documentation.
 
 ```markdown
@@ -495,14 +498,13 @@ Patterns and keywords that indicate high-risk claims requiring verification.
 ## Folder Structure to Create
 
 ```
-research/
-└── domains/
-    └── claim-categories/
-        ├── README.md
-        ├── taxonomy.md
-        ├── ftc-guidelines.md
-        ├── enforcement-actions.md
-        └── risk-patterns.md
+domains/
+└── claim-categories/
+    ├── README.md
+    ├── taxonomy.md
+    ├── ftc-guidelines.md
+    ├── enforcement-actions.md
+    └── risk-patterns.md
 ```
 
 ## Success Criteria

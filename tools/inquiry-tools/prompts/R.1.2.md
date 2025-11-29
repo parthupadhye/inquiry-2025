@@ -1,5 +1,8 @@
 # PROMPT R.1.2: Industry-Specific Requirements — Documentation Structure
 
+## Target Repo
+`inquiry-research` (NOT the main project repo)
+
 ## Instructions
 - Create all files directly without asking for confirmation
 - Do not ask "Would you like me to create this file?" — just create it
@@ -12,7 +15,7 @@ Create documentation templates for industry-specific claim requirements. Scaffol
 
 ## Files to Create
 
-### 1. research/domains/claim-categories/industry-specific/README.md
+### 1. domains/claim-categories/industry-specific/README.md
 
 ```markdown
 # Industry-Specific Claim Requirements
@@ -41,7 +44,7 @@ Each industry file contains:
 - Example claims
 ```
 
-### 2. research/domains/claim-categories/industry-specific/health-wellness.md
+### 2. domains/claim-categories/industry-specific/health-wellness.md
 
 ```markdown
 # Health & Wellness Industry — Claim Requirements
@@ -151,7 +154,7 @@ Each industry file contains:
 - [ ] Document required disclaimers
 ```
 
-### 3. research/domains/claim-categories/industry-specific/financial-services.md
+### 3. domains/claim-categories/industry-specific/financial-services.md
 
 ```markdown
 # Financial Services Industry — Claim Requirements
@@ -250,7 +253,7 @@ Each industry file contains:
 - [ ] Document required disclosures
 ```
 
-### 4. research/domains/claim-categories/industry-specific/cpg-food.md
+### 4. domains/claim-categories/industry-specific/cpg-food.md
 
 ```markdown
 # CPG / Food & Beverage Industry — Claim Requirements
@@ -350,7 +353,7 @@ Each industry file contains:
 - [ ] Document nutrient content claim thresholds
 ```
 
-### 5. research/domains/claim-categories/industry-specific/environmental.md
+### 5. domains/claim-categories/industry-specific/environmental.md
 
 ```markdown
 # Environmental / Sustainability — Claim Requirements
@@ -460,15 +463,14 @@ Each industry file contains:
 ## Folder Structure to Create
 
 ```
-research/
-└── domains/
-    └── claim-categories/
-        └── industry-specific/
-            ├── README.md
-            ├── health-wellness.md
-            ├── financial-services.md
-            ├── cpg-food.md
-            └── environmental.md
+domains/
+└── claim-categories/
+    └── industry-specific/
+        ├── README.md
+        ├── health-wellness.md
+        ├── financial-services.md
+        ├── cpg-food.md
+        └── environmental.md
 ```
 
 ## Success Criteria
