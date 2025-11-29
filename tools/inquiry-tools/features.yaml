@@ -7,6 +7,9 @@ project:
 
 labels:
   phases:
+    - name: "phase:0-research"
+      color: "f9a825"
+      description: "Research and planning"
     - name: "phase:1-foundation"
       color: "1d76db"
       description: "CLI and workspace setup"
@@ -24,6 +27,12 @@ labels:
       description: "Workflow engine"
   
   components:
+    - name: "component:research"
+      color: "f9a825"
+    - name: "component:pilot"
+      color: "ff9800"
+    - name: "component:validation"
+      color: "9c27b0"
     - name: "component:cli"
       color: "c5def5"
     - name: "component:contracts"
@@ -49,6 +58,412 @@ labels:
       description: "4-8 hours"
 
 features:
+  # ============================================
+  # PHASE 0: RESEARCH INFRASTRUCTURE
+  # ============================================
+  
+  "R.0.0":
+    title: "Research: Create issue templates and batch script"
+    phase: "phase:0-research"
+    component: "component:research"
+    size: "size:medium"
+    description: |
+      Create GitHub issue templates and batch creation script for research tracking.
+    acceptance_criteria:
+      - "Issue templates for domain, industry, spec, validation, pilot"
+      - "Batch creation script for GitHub issues"
+      - "Script supports --dry-run preview"
+      - "Script can filter by type (industries, agents, etc.)"
+    files:
+      - ".github/ISSUE_TEMPLATE/research-domain.md"
+      - ".github/ISSUE_TEMPLATE/research-industry.md"
+      - ".github/ISSUE_TEMPLATE/agent-spec.md"
+      - ".github/ISSUE_TEMPLATE/agent-validation.md"
+      - ".github/ISSUE_TEMPLATE/pilot-task.md"
+      - "tools/inquiry-tools/create-research-issues.py"
+
+  # ============================================
+  # PHASE 0: DOMAIN RESEARCH
+  # ============================================
+  
+  "R.1.1":
+    title: "Research: FTC claim categories and substantiation"
+    phase: "phase:0-research"
+    component: "component:research"
+    size: "size:large"
+    description: |
+      Create documentation structure for FTC claim categories research.
+    acceptance_criteria:
+      - "Taxonomy template created"
+      - "FTC guidelines template created"
+      - "Enforcement actions template created"
+      - "Risk patterns template created"
+    files:
+      - "research/domains/claim-categories/README.md"
+      - "research/domains/claim-categories/taxonomy.md"
+      - "research/domains/claim-categories/ftc-guidelines.md"
+      - "research/domains/claim-categories/enforcement-actions.md"
+      - "research/domains/claim-categories/risk-patterns.md"
+
+  "R.1.2":
+    title: "Research: Industry-specific requirements structure"
+    phase: "phase:0-research"
+    component: "component:research"
+    size: "size:large"
+    description: |
+      Create documentation structure for industry-specific claim requirements.
+    acceptance_criteria:
+      - "Health/Wellness template created"
+      - "Financial Services template created"
+      - "CPG/Food template created"
+      - "Environmental template created"
+    files:
+      - "research/domains/claim-categories/industry-specific/README.md"
+      - "research/domains/claim-categories/industry-specific/health-wellness.md"
+      - "research/domains/claim-categories/industry-specific/financial-services.md"
+      - "research/domains/claim-categories/industry-specific/cpg-food.md"
+      - "research/domains/claim-categories/industry-specific/environmental.md"
+
+  "R.1.3":
+    title: "Research: Brief and deliverable types structure"
+    phase: "phase:0-research"
+    component: "component:research"
+    size: "size:medium"
+    description: |
+      Create documentation structure for brief and deliverable type analysis.
+    acceptance_criteria:
+      - "Catalog template created"
+      - "Extraction patterns template created"
+      - "Templates folder created"
+      - "Samples folder created"
+    files:
+      - "research/domains/brief-types/README.md"
+      - "research/domains/brief-types/catalog.md"
+      - "research/domains/brief-types/extraction-patterns.md"
+      - "research/domains/brief-types/templates/"
+
+  "R.1.4":
+    title: "Research: Agency workflow mapping structure"
+    phase: "phase:0-research"
+    component: "component:research"
+    size: "size:medium"
+    description: |
+      Create documentation structure for agency workflow mapping.
+    acceptance_criteria:
+      - "Workflow map template created"
+      - "Stakeholders template created"
+      - "Tools audit template created"
+      - "Pain points template created"
+    files:
+      - "research/domains/agency-workflow/README.md"
+      - "research/domains/agency-workflow/workflow-map.md"
+      - "research/domains/agency-workflow/stakeholders.md"
+      - "research/domains/agency-workflow/tools-audit.md"
+      - "research/domains/agency-workflow/pain-points.md"
+
+  "R.1.5":
+    title: "Research: Source credibility framework structure"
+    phase: "phase:0-research"
+    component: "component:research"
+    size: "size:medium"
+    description: |
+      Create documentation structure for source credibility framework.
+    acceptance_criteria:
+      - "Source types template created"
+      - "Credibility framework template created"
+      - "Expiration rules template created"
+    files:
+      - "research/domains/sources/README.md"
+      - "research/domains/sources/source-types.md"
+      - "research/domains/sources/credibility-framework.md"
+      - "research/domains/sources/expiration-rules.md"
+
+  # ============================================
+  # PHASE 0: INDUSTRY RESEARCH (via batch script)
+  # ============================================
+  # These are created as GitHub issues, not code features
+  # Run: python create-research-issues.py --type=industries
+
+  # R.2.1 - Pharmaceutical/Biotech
+  # R.2.2 - Automotive
+  # R.2.3 - Technology/SaaS
+  # R.2.4 - Telecommunications
+  # R.2.5 - Insurance
+  # R.2.6 - Real Estate
+  # R.2.7 - Education
+  # R.2.8 - Cosmetics/Beauty
+  # R.2.9 - Alcohol/Beverage
+  # R.2.10 - Gaming/Gambling
+
+  # ============================================
+  # AGENT SPECIFICATIONS
+  # ============================================
+
+  "S.3.1":
+    title: "Spec: ClaimExtraction agent"
+    phase: "phase:3-agents"
+    component: "component:agents"
+    size: "size:medium"
+    description: |
+      Write detailed specification for ClaimExtraction agent.
+    acceptance_criteria:
+      - "Input/output schemas defined with Zod"
+      - "Claim detection rules documented"
+      - "Category assignment logic documented"
+      - "LLM prompt strategy documented"
+      - "15+ test cases created"
+      - "Confidence scoring defined"
+      - "Edge cases documented"
+    files:
+      - "research/agents/specifications/claim-extraction-spec.md"
+      - "research/agents/test-cases/claim-extraction/"
+
+  "S.3.2":
+    title: "Spec: RiskScoring agent"
+    phase: "phase:3-agents"
+    component: "component:agents"
+    size: "size:medium"
+    description: |
+      Write detailed specification for RiskScoring agent.
+    acceptance_criteria:
+      - "Scoring algorithm documented"
+      - "Risk factors and weights defined"
+      - "Category-specific rules documented"
+      - "Keyword pattern library created"
+      - "15+ test cases created"
+      - "Threshold calibration documented"
+    files:
+      - "research/agents/specifications/risk-scoring-spec.md"
+      - "research/agents/test-cases/risk-scoring/"
+
+  "S.3.3":
+    title: "Spec: SourceFinder agent"
+    phase: "phase:3-agents"
+    component: "component:agents"
+    size: "size:medium"
+    description: |
+      Write detailed specification for SourceFinder agent.
+    acceptance_criteria:
+      - "Input/output schemas defined"
+      - "Search strategies per claim type documented"
+      - "Source ranking algorithm defined"
+      - "API integrations identified"
+      - "10+ test cases created"
+      - "Fallback strategies documented"
+    files:
+      - "research/agents/specifications/source-finder-spec.md"
+      - "research/agents/test-cases/source-finder/"
+
+  "S.3.4":
+    title: "Spec: SourceVerification agent"
+    phase: "phase:3-agents"
+    component: "component:agents"
+    size: "size:large"
+    description: |
+      Write detailed specification for SourceVerification agent.
+    acceptance_criteria:
+      - "Verification logic documented"
+      - "Support types defined (direct, indirect, partial)"
+      - "Confidence calculation documented"
+      - "LLM prompt for verification defined"
+      - "15+ test cases created"
+      - "Dispute handling documented"
+    files:
+      - "research/agents/specifications/source-verification-spec.md"
+      - "research/agents/test-cases/source-verification/"
+
+  "S.3.5":
+    title: "Spec: CredibilityScoring agent"
+    phase: "phase:3-agents"
+    component: "component:agents"
+    size: "size:medium"
+    description: |
+      Write detailed specification for CredibilityScoring agent.
+    acceptance_criteria:
+      - "Scoring criteria from credibility framework"
+      - "Factor weights defined"
+      - "Scoring rubrics created"
+      - "10+ test cases created"
+      - "Minimum thresholds per claim type defined"
+    files:
+      - "research/agents/specifications/credibility-scoring-spec.md"
+      - "research/agents/test-cases/credibility-scoring/"
+
+  "S.3.6":
+    title: "Spec: EvidenceExtraction agent"
+    phase: "phase:3-agents"
+    component: "component:agents"
+    size: "size:medium"
+    description: |
+      Write detailed specification for EvidenceExtraction agent.
+    acceptance_criteria:
+      - "Evidence types defined (quote, statistic, finding)"
+      - "Relevance scoring documented"
+      - "LLM prompt for extraction defined"
+      - "10+ test cases created"
+      - "Location tracking documented"
+    files:
+      - "research/agents/specifications/evidence-extraction-spec.md"
+      - "research/agents/test-cases/evidence-extraction/"
+
+  "S.3.7":
+    title: "Spec: ReportGenerator agent"
+    phase: "phase:3-agents"
+    component: "component:agents"
+    size: "size:large"
+    description: |
+      Write detailed specification for ReportGenerator agent.
+    acceptance_criteria:
+      - "Report structure/sections defined"
+      - "Recommendation logic documented"
+      - "Summary generation documented"
+      - "Output formats defined (JSON, PDF)"
+      - "5+ test cases created"
+      - "Legal package format defined"
+    files:
+      - "research/agents/specifications/report-generator-spec.md"
+      - "research/agents/test-cases/report-generator/"
+
+  "S.5.1":
+    title: "Spec: BriefProcessor workflow agent"
+    phase: "phase:5-workflow"
+    component: "component:workflow"
+    size: "size:large"
+    description: |
+      Write detailed specification for BriefProcessor workflow agent.
+    acceptance_criteria:
+      - "Workflow steps documented"
+      - "Step dependencies defined"
+      - "Parallel vs sequential execution documented"
+      - "Error handling per step defined"
+      - "5+ end-to-end test cases created"
+      - "Partial result handling documented"
+    files:
+      - "research/agents/specifications/brief-processor-spec.md"
+      - "research/agents/test-cases/brief-processor/"
+
+  # ============================================
+  # AGENT VALIDATION
+  # ============================================
+
+  "V.3.1":
+    title: "Validate: ClaimExtraction agent v1.0"
+    phase: "phase:3-agents"
+    component: "component:validation"
+    size: "size:medium"
+    description: |
+      Validate ClaimExtraction agent against test cases and pilot data.
+    acceptance_criteria:
+      - "All test cases pass"
+      - "Tested against 5+ real briefs"
+      - "Accuracy >90%"
+      - "Recall >90%"
+      - "Latency <3s avg"
+      - "Issues documented"
+    files:
+      - "research/agents/evaluations/claim-extraction-v1.md"
+
+  "V.3.2":
+    title: "Validate: RiskScoring agent v1.0"
+    phase: "phase:3-agents"
+    component: "component:validation"
+    size: "size:medium"
+    description: |
+      Validate RiskScoring agent against test cases and expert calibration.
+    acceptance_criteria:
+      - "All test cases pass"
+      - "Accuracy vs expert >85%"
+      - "False positive rate <15%"
+      - "False negative rate <10%"
+      - "Latency <500ms avg"
+    files:
+      - "research/agents/evaluations/risk-scoring-v1.md"
+
+  "V.3.3":
+    title: "Validate: SourceVerification agent v1.0"
+    phase: "phase:3-agents"
+    component: "component:validation"
+    size: "size:medium"
+    description: |
+      Validate SourceVerification agent against test cases and pilot data.
+    acceptance_criteria:
+      - "All test cases pass"
+      - "Accuracy >85%"
+      - "Confidence calibration within 10%"
+      - "Latency <5s avg"
+    files:
+      - "research/agents/evaluations/source-verification-v1.md"
+
+  "V.3.4":
+    title: "Validate: ReportGenerator agent v1.0"
+    phase: "phase:3-agents"
+    component: "component:validation"
+    size: "size:medium"
+    description: |
+      Validate ReportGenerator agent against test cases and user feedback.
+    acceptance_criteria:
+      - "All test cases pass"
+      - "User satisfaction >4/5"
+      - "Report completeness 100%"
+      - "Generation time <10s"
+    files:
+      - "research/agents/evaluations/report-generator-v1.md"
+
+  "V.5.1":
+    title: "Validate: BriefProcessor workflow v1.0"
+    phase: "phase:5-workflow"
+    component: "component:validation"
+    size: "size:large"
+    description: |
+      Validate BriefProcessor workflow end-to-end.
+    acceptance_criteria:
+      - "10+ pilot briefs processed successfully"
+      - "Success rate >95%"
+      - "Total processing time <2 min"
+      - "User satisfaction >4/5"
+      - "Error recovery tested"
+    files:
+      - "research/agents/evaluations/brief-processor-v1.md"
+
+  # ============================================
+  # PILOT TRACKING
+  # ============================================
+
+  "P.1.1":
+    title: "Pilot: Agency A onboarding"
+    phase: "phase:0-research"
+    component: "component:pilot"
+    size: "size:large"
+    description: |
+      Onboard first pilot agency and gather initial feedback.
+    acceptance_criteria:
+      - "Initial interview completed"
+      - "Workflow documented"
+      - "5+ sample briefs collected"
+      - "Success criteria agreed"
+      - "Weekly feedback schedule set"
+    files:
+      - "research/pilots/agency-a/README.md"
+      - "research/pilots/agency-a/workflow.md"
+      - "research/pilots/agency-a/briefs/"
+
+  "P.1.2":
+    title: "Pilot: Agency A - Month 1 feedback"
+    phase: "phase:0-research"
+    component: "component:pilot"
+    size: "size:medium"
+    description: |
+      Collect and analyze first month of pilot feedback.
+    acceptance_criteria:
+      - "Weekly feedback sessions completed"
+      - "Issues/bugs documented"
+      - "Feature requests captured"
+      - "Usage metrics collected"
+      - "Month 1 summary written"
+    files:
+      - "research/pilots/agency-a/feedback/"
+      - "research/pilots/agency-a/month-1-summary.md"
+
   # ============================================
   # PHASE 1: FOUNDATION
   # ============================================

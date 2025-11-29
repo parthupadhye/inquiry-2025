@@ -5,7 +5,14 @@ Workflow automation for building the Inquiry Framework feature by feature.
 ## Setup
 
 ```bash
-# Install Python dependencies
+# Create virtual environment
+python -m venv .venv
+
+# Activate it
+source .venv/bin/activate      # Mac/Linux
+# .venv\Scripts\Activate       # Windows
+
+# Install dependencies
 pip install -r requirements.txt
 
 # Set GitHub token
@@ -16,9 +23,23 @@ export GITHUB_TOKEN=your_personal_access_token
 
 # Create labels in GitHub
 python inquiry.py setup-labels
+
+# Initialize research folder
+python research.py init
 ```
 
-## Workflow
+> **Note**: Always activate the virtual environment before running scripts
+
+## Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `inquiry.py` | Development workflow (GitHub issues, commits) |
+| `research.py` | Research documentation (specs, pilots, findings) |
+
+---
+
+## inquiry.py — Development Workflow
 
 ### 1. See Available Features
 
@@ -115,11 +136,22 @@ Example: 1.1.1
 
 ## Phases
 
+0. **Research** - Domain research, specs, pilots
 1. **Foundation** - CLI and workspace setup
 2. **Contracts** - Types and validation
 3. **Agents** - Agent system
 4. **Data** - Neo4j and Firestore
 5. **Workflow** - Workflow engine
+
+## Feature ID Prefixes
+
+| Prefix | Type |
+|--------|------|
+| `R.X.X` | Research tasks |
+| `S.X.X` | Agent specifications |
+| `V.X.X` | Validation tasks |
+| `P.X.X` | Pilot tasks |
+| `X.X.X` | Development features |
 
 ## Creating New Prompts
 
@@ -130,3 +162,85 @@ python inquiry.py create-prompt 1.1.2
 # Edit the generated file
 code prompts/1.1.2.md
 ```
+
+---
+
+## research.py — Research Management
+
+Manages research documentation separately from application code.
+
+### Initialize Research Folder
+
+```bash
+python research.py init
+```
+
+Creates:
+```
+research/
+├── domains/           # Domain research
+│   ├── claim-categories/
+│   ├── brief-types/
+│   ├── agency-workflow/
+│   └── sources/
+├── agents/            # Agent specs and evaluations
+│   ├── specifications/
+│   ├── test-cases/
+│   └── evaluations/
+├── pilots/            # Pilot agency docs
+├── knowledge-base/    # Reference materials
+└── findings/          # Research findings
+```
+
+### Create Research Documents
+
+```bash
+# Domain research
+python research.py new domain "FTC claim categories"
+python research.py new domain "Health wellness claims"
+python research.py new domain "Agency workflow mapping"
+
+# Agent specifications
+python research.py new spec ClaimExtraction
+python research.py new spec RiskScoring
+python research.py new spec SourceVerification
+
+# Agent evaluations
+python research.py new eval ClaimExtraction 1.0
+python research.py new eval RiskScoring 1.0
+
+# Pilot management
+python research.py new pilot "Agency A"
+python research.py new interview "Agency A"
+
+# Research findings
+python research.py new finding "Legal review bottleneck"
+```
+
+### List and Status
+
+```bash
+# List all research docs
+python research.py list
+
+# List by type
+python research.py list spec
+python research.py list pilot
+
+# Show research stats
+python research.py status
+```
+
+### Research Commands
+
+| Command | Description |
+|---------|-------------|
+| `init` | Create research folder structure |
+| `new domain <topic>` | Create domain research doc |
+| `new spec <agent>` | Create agent specification |
+| `new eval <agent> <version>` | Create evaluation doc |
+| `new pilot <agency>` | Create pilot folder |
+| `new interview <agency>` | Create interview notes |
+| `new finding <topic>` | Create research finding |
+| `list [type]` | List research docs |
+| `status` | Show research stats |
